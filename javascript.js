@@ -1,7 +1,7 @@
 
 // armo un array de mis objetos, y un array para el carrito
 
-const carrito = []
+const carrito = [0]
 const juegos=[
     {
         titulo: "Tales of Berseria",
@@ -57,21 +57,30 @@ const juegos=[
 
 
 function comprarJuegos() {
-    let comprar; 
-    do{
-        comprar = prompt ("¿Qué juego te gustaría comprar?");
-        for (const juego of juegos){
-            if (juego.titulo == comprar){
-                carrito.push (comprar);
+    let comprar = prompt ("¿Qué juego te gustaría comprar?"); 
+    for (const juego of juegos) {
+        if (comprar == juego.titulo) {                
+                carrito.push (juego.precio);
                 console.log ("Se ha añadido "+comprar+" al carrito");
                 console.log (carrito);
-            }
+                comprarJuegos ();                
+        }else{
+            alert("Lo sentimos, no contamos con ese juego aún");
+            break;
         }
-    }while (comprar != "")
-}
+    }
+};
 
-comprarJuegos ()
+comprarJuegos ();
 
+function precioTotal() {
+    let total = carrito.reduce(function (precioActual, precioAgregado){
+        return precioActual + precioAgregado;
+    } );
+    console.log ("El total a pagar es de $"+total);
+};
+
+precioTotal ();
 
 
 
