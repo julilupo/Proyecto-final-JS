@@ -15,7 +15,7 @@
 </head>
 <body>
 
-    <!--Nav Bar-->
+    <!-- Nav Bar -->
 
     <header>
         <nav class="navbar bg-light d-flex p-3">
@@ -28,15 +28,34 @@
         </nav>
     </header>
 
-    <!--Sección principal-->
+    <!-- Sección principal -->
     
     <main>
+
+    <!-- Hero -->
+
         <section class="hero d-flex justify-content-center">            
             <button class="btnStart btn text-white" onclick="location.href='#juegosDisponibles'" type="button">START!</button>
         </section>
-        <section class="juegos d-flex justify-content-center mt-5">
+        
+        <div class="d-flex justify-content-center mt-5">
             <h2 id="juegosDisponibles" class="titulo text-uppercase">Juegos Disponibles</h2>
+        </div>
+        
+        <!-- Tarjetas de juegos -->
+        
+        <section class="juegos d-flex justify-content-center mt-5">
+            <article>
+                <div class="container">
+                    <div class="row">
+                        <div class="col md-3" id="tarjetas">
 
+                            <!-- Acá se insertan las tarjetas de forma dinámica mediante JS -->
+
+                        </div>
+                    </div>
+                </div>
+            </article>
         </section>
     </main>
     
