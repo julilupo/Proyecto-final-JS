@@ -3,7 +3,7 @@
     height: 100vh;
 }
 
-.btnStart {
+#btnStart {
     font-family: 'Press Start 2P', cursive;
     font-size: 5rem;
     border: none;
@@ -12,7 +12,7 @@
     margin-top: 10rem;    
 }
 
-.titulo {
+#juegosDisponibles {
     font-family: 'League Gothic', sans-serif;
     font-size: 5rem;
 }
