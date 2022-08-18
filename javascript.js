@@ -42,11 +42,11 @@ let htmlTarjetas = "";
 
 juegos.forEach((juego) => {
     htmlTarjetas += `
-    <div class="card border-info m-3 p-3" style="width: 18rem;">
+    <div class="card border-info m-3 p-2" style="width: 18rem;">
     <img src=${juego.imagen} class="card-img-top" alt="${juego.alt}">
     <div class="card-body d-flex flex-column justify-content-between">
-        <h5 class="card-title mt-2 text-center fw-bolder">${juego.nombre}</h5>
-        <p class="card-text mt-2">${juego.descripcion}</p>
+        <h5 class="card-title mt-1 text-center fw-bolder">${juego.nombre}</h5>
+        <p class="card-text mt-1">${juego.descripcion}</p>
         <ul>
             <li><u>Género</u>: ${juego.genero}</li>
             <li><u>Características</u>: ${juego.caracteristicas}</li>        
@@ -69,6 +69,6 @@ botonStart.onclick = () => location.href='#juegosDisponibles';
 let botonComprar = document.getElementsByClassName("btnComprar");
 
 botonComprar.onclick = () => {
-    
+
 
 }
