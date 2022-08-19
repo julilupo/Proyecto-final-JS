@@ -22,9 +22,35 @@
             <div class="">
                 <span class="navbar-brand mb-0 h1"><img src="./Assets/Game Logo.png" alt="Logo Game MKT"></span>
             </div>
-            <form class="">
-                <button class="btn btn-outline-info me-2" type="button">SHOP NOW!</button>
-            </form>
+            
+                <!-- Offcanvas Carrito -->
+
+            <button class="btn btn-info text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">CARRITO</button>
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+              <div class="offcanvas-header">
+                <h5 class="offcanvas-title" id="offcanvasRightLabel">Videojuegos agregados al carrito</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+              </div>
+              <div class="offcanvas-body">
+                <table class="table table-info">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Videojuego</th>
+                      <th scope="col">Precio</th>
+                      <th scope="col">Total</th>
+                    </tr>
+                  </thead>
+                  <tbody id="itemsCarrito"></tbody>
+                  <tfoot>
+                    <tr id="footer">
+                    <th scope="row" colspan="4">El carrito se encuentra vacío</th>
+                    </tr>
+                  </tfoot>
+                </table>
+                <button id= "btnFinalizarCompra" type="button" class="btn btn-info text-white">FINALIZAR COMPRA</button>
+              </div>
+            </div>
         </nav>
     </header>
 
