@@ -34,22 +34,19 @@ let botonFinalizar = document.getElementById("btnFinalizarCompra");
 //Declaramos variables que vamos a utilizar
 
 
-//let htmlTarjetas = "";
-//let botonComprar = "";
 
 //Ejecución de funciones
 
 cargarVideojuegos ();
 crearTarjetas ();
 
-//agregarAlCarrito ();
 
 //          Armado de funciones
 
 //Función para agregar los videojuegos disponibles en la tienda
 
 function cargarVideojuegos () {
-
+    
     videojuegos.push (new Videojuego (1, "Tales of Berseria", "Emprende un viaje de autodescubrimiento adoptando el rol de Velvet, una joven cuya personalidad, antaño dulce, ha sido sustituida por una ira y un odio exacerbados producto de una traumática experiencia ocurrida tres años antes de los eventos de Tales of Berseria.", "JRPG", "Un jugador", "./Assets/talesofberseria.jpg", 49.99));
     videojuegos.push (new Videojuego (2, "Baldur's Gate 3", "Reúne a tu grupo y vuelve a los Reinos Olvidados en un relato de compañerismo y traición, sacrificio y supervivencia, además de la atracción de un poder absoluto.","RPG", "Un jugador, Cooperativo en línea", "./Assets/baldursgate3.jpg", 59.99));
     videojuegos.push (new Videojuego (3, "Hollow Knight", "Una aventura de acción clásica en 2D ambientada en un vasto mundo interconectado. Explora cavernas tortuosas, ciudades antiguas y páramos mortales. Combate contra criaturas corrompidas, haz amistad con extraños insectos y resuelve los antiguos misterios que yacen en el corazón de reino.","Plataforma", "Un jugador", "./Assets/hollowknight.jpg", 9.99));
@@ -64,35 +61,35 @@ function cargarVideojuegos () {
 //Función para agregar los juegos elegidos al carrito
 
 function crearTarjetas (videojuego) {
-
+    
     //boton    
     let botonComprar = document.createElement ("button");
     botonComprar.className = "btn btn-info fw-semibold";
     botonComprar.innerText = `COMPRAR POR $ ${videojuego.precio}`;
-
+    
     //card footer
     let footerTarjeta = document.createElement ("div");
     footerTarjeta.className = "card-footer d-flex justify-content-center";
     footerTarjeta.append (botonComprar);
-
+    
     //card body
     let cuerpoTarjeta = document.createElement ("div");
     cuerpoTarjeta.className = "card-body d-flex flex-column justify-content-between";
     cuerpoTarjeta.innerHTML = `
-            <h5 class="card-title mt-1 text-center fw-bolder">${videojuego.nombre}</h5>
-            <p class="card-text mt-1">${videojuego.descripcion}</p>
-            <ul>
-                <li><u>Género</u>: ${videojuego.genero}</li>
-                <li><u>Características</u>: ${videojuego.caracteristicas}</li>        
-            </ul>
+    <h5 class="card-title mt-1 text-center fw-bolder">${videojuego.nombre}</h5>
+    <p class="card-text mt-1">${videojuego.descripcion}</p>
+    <ul>
+    <li><u>Género</u>: ${videojuego.genero}</li>
+    <li><u>Características</u>: ${videojuego.caracteristicas}</li>        
+    </ul>
     `;
-
+    
     //imagen
     let imagen = document.createElement ("img");
     imagen.src = videojuego.imagen;
     imagen.className = "card-img-top";
     imagen.alt = `Portada del juego ${videojuego.nombre}`;
-
+    
     //Tarjeta
     let tarjeta = document.createElement ("div");
     tarjeta.className = "card border-info m-3 p-2";
@@ -100,21 +97,66 @@ function crearTarjetas (videojuego) {
     tarjeta.append (imagen);
     tarjeta.append (cuerpoTarjeta);
     tarjeta.append (footerTarjeta);
-
-
-
-
-
+    
+    
+    
+    
+    
     return tarjeta;
-
-
-
-
-
-
+    
+    
+    
+    
+    
+    
 }
 
+botonStart.onclick = () => location.href='#juegosDisponibles';
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//let htmlTarjetas = "";
+//let botonComprar = "";
 /*
+//agregarAlCarrito ();
+
+
 //Utilizando el método for each, agregamos de manera dinámica en el html las cards que corresponden a cada juego
 
 catalogoJuegos.forEach(
@@ -157,4 +199,3 @@ tarjetas.innerHTML = htmlTarjetas;
 //algunos eventos
 
 
-botonStart.onclick = () => location.href='#juegosDisponibles';
