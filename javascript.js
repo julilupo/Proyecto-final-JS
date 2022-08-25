@@ -13,7 +13,7 @@ class Videojuego {
     }
 }
 
-class JuegosCarrito {
+class JuegoCarrito {
     constructor (videojuego, cantidad) {
         this.videojuego = videojuego;
         this.cantidad = cantidad;
@@ -23,11 +23,11 @@ class JuegosCarrito {
 //Arrays donde cargamos los videojuegos disponibles en la tienda, y los productos del carrito
 
 const videojuegos = [];
-const itemsCarrito = [];
+const juegosCarrito = [];
 
 //Llamado a las variables que necesitamos con el dom
 
-let tarjetas = document.getElementById ("tarjetas-juegos");
+let tarjetasJuegos = document.getElementById ("tarjetas-juegos");
 let botonStart = document.getElementById("btnStart");
 let botonFinalizar = document.getElementById("btnFinalizarCompra");
 
@@ -39,6 +39,7 @@ let botonFinalizar = document.getElementById("btnFinalizarCompra");
 
 cargarVideojuegos ();
 crearTarjetas ();
+dibujarCatalogoJuegos ();
 
 
 //          Armado de funciones
@@ -59,6 +60,15 @@ function cargarVideojuegos () {
 
 
 //Función para agregar los juegos elegidos al carrito
+
+function dibujarCatalogoJuegos () {
+    videojuegos.forEach (
+        (videojuego) => {
+            let contenedorTarjetas = crearTarjetas (videojuego);
+            tarjetasJuegos.append (contenedorTarjetas);
+        }
+    );
+}
 
 function crearTarjetas (videojuego) {
     
@@ -98,7 +108,12 @@ function crearTarjetas (videojuego) {
     tarjeta.append (cuerpoTarjeta);
     tarjeta.append (footerTarjeta);
     
-    
+    botonComprar.onclick = () => {
+        let juegoCarrito = new JuegoCarrito(videojuego, 1);
+        juegosCarrito.push(juegoCarrito);
+
+
+    }
     
     
     
