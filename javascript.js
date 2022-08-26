@@ -13,23 +13,29 @@ class Videojuego {
     }
 }
 
-class JuegoCarrito {
+class ElementoCarrito {
     constructor (videojuego, cantidad) {
         this.videojuego = videojuego;
         this.cantidad = cantidad;
     }
 }
 
+//definiciones de constantes
+
+const estandarDolaresAmericanos = Intl.NumberFormat('en-US');
+
 //Arrays donde cargamos los videojuegos disponibles en la tienda, y los productos del carrito
 
 const videojuegos = [];
-const juegosCarrito = [];
+const elementosCarrito = [];
 
 //Llamado a las variables que necesitamos con el dom
 
 let tarjetasJuegos = document.getElementById ("tarjetas-juegos");
-let botonStart = document.getElementById("btnStart");
-let botonFinalizar = document.getElementById("btnFinalizarCompra");
+let botonStart = document.getElementById ("btnStart");
+let itemsCarrito = document.getElementById ("itemsCarrito");
+let footerCarrito = document.getElementById ("footer");
+let botonFinalizar = document.getElementById ("btnFinalizarCompra");
 
 //Declaramos variables que vamos a utilizar
 
@@ -38,7 +44,6 @@ let botonFinalizar = document.getElementById("btnFinalizarCompra");
 //Ejecución de funciones
 
 cargarVideojuegos ();
-crearTarjetas ();
 dibujarCatalogoJuegos ();
 
 
@@ -59,13 +64,13 @@ function cargarVideojuegos () {
 }
 
 
-//Función para agregar los juegos elegidos al carrito
+//Función para crear las tarjetas del catalogo de videojuegos
 
 function dibujarCatalogoJuegos () {
     videojuegos.forEach (
         (videojuego) => {
             let contenedorTarjetas = crearTarjetas (videojuego);
-            tarjetasJuegos.append (contenedorTarjetas);
+            tarjetasJuegos.append(contenedorTarjetas);
         }
     );
 }
@@ -108,11 +113,17 @@ function crearTarjetas (videojuego) {
     tarjeta.append (cuerpoTarjeta);
     tarjeta.append (footerTarjeta);
     
+    //evento botón comprar
     botonComprar.onclick = () => {
-        let juegoCarrito = new JuegoCarrito(videojuego, 1);
-        juegosCarrito.push(juegoCarrito);
+        let elementoCarrito = new ElementoCarrito(videojuego, 1);
+        elementosCarrito.push(elementoCarrito);
 
+        dibujarCarrito ();
 
+        swal({
+            title: `¡${videojuego.nombre} agregado al carrito!`,            
+            icon: "success",
+        });
     }
     
     
@@ -126,91 +137,40 @@ function crearTarjetas (videojuego) {
     
 }
 
-botonStart.onclick = () => location.href='#juegosDisponibles';
 
+//función para crear el carrito
 
+function dibujarCarrito () {
 
+    let sumaCarrito = 0;
 
+    elementosCarrito.forEach (
+        (elemento) => {
+            let renglonesCarrito= document.createElement("tr");
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//let htmlTarjetas = "";
-//let botonComprar = "";
-/*
-//agregarAlCarrito ();
-
-
-//Utilizando el método for each, agregamos de manera dinámica en el html las cards que corresponden a cada juego
-
-catalogoJuegos.forEach(
-    (juego) => {
-        htmlTarjetas += `
-        <div class="card border-info m-3 p-2" style="width: 18rem;">
-        <img src=${juego.imagen} class="card-img-top" alt="Portada del juego ${juego.nombre}">
-        <div class="card-body d-flex flex-column justify-content-between">
-            <h5 class="card-title mt-1 text-center fw-bolder">${juego.nombre}</h5>
-            <p class="card-text mt-1">${juego.descripcion}</p>
-            <ul>
-                <li><u>Género</u>: ${juego.genero}</li>
-                <li><u>Características</u>: ${juego.caracteristicas}</li>        
-            </ul>
-        </div>
-        <div class="card-footer d-flex justify-content-center">
-            <button id="btnComprar${juego.id}" class="btn btn-info fw-semibold">COMPRAR POR $ ${juego.precio}</button>
-        </div>
-        </div>
-        `
-    });
-
-function agregarAlCarrito (videojuego) {
-    let botonComprar = "";
-    catalogoJuegos.forEach(
-        (juego) => {
-            botonComprar += document.getElementById(`btnComprar${juego.id}`)
-            botonComprar.onclick = () => {
-                let productoCarrito = new JuegosCarrito (videojuego, 1);
-                carrito.push(productoCarrito);
-            }
+            renglonesCarrito.innerHTML = `
+                <td>${elemento.videojuego.id}</td>
+                <td>${elemento.videojuego.nombre}</td>
+                <td>$ ${elemento.videojuego.precio}</td>            
+            `;
+        itemsCarrito.append (renglonesCarrito);
+        
+        sumaCarrito += elemento.videojuego.precio;
         }
-    )
+    );
+
+    if (elementosCarrito.length == 0) {
+        footerCarrito.innerHTML = `
+        <th class="text-center" scope="row" colspan="4">El carrito se encuentra vacío</th>`;
+    } else {
+        footerCarrito.innerHTML = `
+        <th class="text-center" scope="row" colspan="4">Total de tu compra: $${estandarDolaresAmericanos.format(sumaCarrito)}</th>
+        `;
+    }
+
 }
 
-console.log (carrito);
+//eventos
 
-tarjetas.innerHTML = htmlTarjetas;
-*/
-//algunos eventos
-
+botonStart.onclick = () => location.href='#juegosDisponibles';
 
