@@ -35,9 +35,11 @@ let tarjetasJuegos = document.getElementById ("tarjetas-juegos");
 let botonStart = document.getElementById ("btnStart");
 let itemsCarrito = document.getElementById ("itemsCarrito");
 let footerCarrito = document.getElementById ("footer");
-let botonFinalizar = document.getElementById ("btnFinalizarCompra");
+let botonFinalizarCompra = document.getElementById ("btnFinalizarCompra");
+let botonVaciarCarrito = document.getElementById ("btnVaciarCarrito");
 
 //Declaramos variables que vamos a utilizar
+console.log(videojuegos);
 
 
 
@@ -45,6 +47,7 @@ let botonFinalizar = document.getElementById ("btnFinalizarCompra");
 
 cargarVideojuegos ();
 dibujarCatalogoJuegos ();
+vaciarCarritoCompras ();
 
 
 //          Armado de funciones
@@ -120,27 +123,41 @@ function crearTarjetas (videojuego) {
 
         dibujarCarrito ();
 
+        //Alerta mediante Librería Sweet Alert
+
         swal({
-            title: `¡${videojuego.nombre} agregado al carrito!`,            
+            text: `¡${videojuego.nombre} agregado al carrito!`,            
             icon: "success",
+            /*buttons: {
+                continuar: {
+                    text: "Seguir comprando",
+                    value: false
+                },
+                carrito: {
+                    text: "Finalizar compra",
+                    value: true
+                }
+            }
+        }).then((irAlCarrito) => {
+
+            if(irAlCarrito) {
+
+                const offcanvasCarrito = new bootstrap.Offcanvas(document.getElementById('offcanvasRight'), {keyboard: true}),
+                const btnCarrito = document.getElementById ("btnCarrito"),
+                offcanvasCarrito.show (btnCarrito)
+            }*/
         });
-    }
-    
-    
+    }  
     
     return tarjeta;
-    
-    
-    
-    
-    
-    
 }
 
 
 //función para crear el carrito
 
 function dibujarCarrito () {
+    
+    itemsCarrito.innerHTML = "";
 
     let sumaCarrito = 0;
 
@@ -151,7 +168,7 @@ function dibujarCarrito () {
             renglonesCarrito.innerHTML = `
                 <td>${elemento.videojuego.id}</td>
                 <td>${elemento.videojuego.nombre}</td>
-                <td>$ ${elemento.videojuego.precio}</td>            
+                <td>$ ${estandarDolaresAmericanos.format(elemento.videojuego.precio)}</td>            
             `;
         itemsCarrito.append (renglonesCarrito);
         
@@ -166,11 +183,44 @@ function dibujarCarrito () {
         footerCarrito.innerHTML = `
         <th class="text-center" scope="row" colspan="4">Total de tu compra: $${estandarDolaresAmericanos.format(sumaCarrito)}</th>
         `;
+        botonVaciarCarrito.onclick = () => {
+            swal ({
+                icon: "warning",
+                text: "¿Estás segura/o que quieres vaciar el carrito?",
+                buttons: {
+                    confirmar: {
+                        text: "Si, lo estoy",
+                        value: true
+                    },
+                    cancelar: {
+                        text: "No, volvamos",
+                        value: false
+                    }
+                }
+            }).then ((vaciarCarrito) => {
+                if (vaciarCarrito) {
+                    sumaCarrito = 0;
+                    footerCarrito.innerHTML = `
+                    <th class="text-center" scope="row" colspan="4">El carrito se encuentra vacío</th>`;
+                    itemsCarrito.innerHTML = "";
+                }
+            }
+            )
+        }
     }
-
 }
 
+function obtenerJsonLocal () {
+    const URLJSON = "juegos.json";
+    fetch (URLJSON)
+    .then (resp => resp.json())
+    .then (data => {
+        const listaJuegos = data.juegos;
+        console.log (listaJuegos);
+    })
+}
+
+obtenerJsonLocal ();
 //eventos
 
 botonStart.onclick = () => location.href='#juegosDisponibles';
-
